@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Instantly convert AI text to human-like content with SwiftScriptify's advanced humanizer tool. Bypass detection and create authentic, engaging text.">
+    <title>AI Text Humanizer - SwiftScriptify</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body id="page-text-humanizer">
+
+    <!-- ================== HEADER ================== -->
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="logo">
+              <a href="/">
+                <img src="/images/logo.png" alt="SwiftScriptify Logo" class="site-logo">
+              </a>
+            </div>
+            <nav class="main-navigation">
+                <ul class="nav-links">
+                    <li><a href="/" class="nav-link">Home</a></li>
+                    <li><a href="/text-humanizer.html" class="nav-link">Text Humanizer</a></li>
+                    <li><a href="/features.html" class="nav-link">Features</a></li>
+                    <li><a href="/pricing.html" class="nav-link">Pricing</a></li>
+                    <li><a href="/faq.html" class="nav-link">FAQ</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="/login.html" class="btn btn-outline">Login</a>
+                <a href="/signup.html" class="btn btn-primary">Sign Up Free</a>
+            </div>
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links-mobile">
+                <span class="hamburger-icon"></span>
+            </button>
+        </div>
+        <div class="mobile-nav-menu" id="nav-links-mobile">
+            <ul class="mobile-nav-links">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/text-humanizer.html" class="nav-link">Text Humanizer</a></li>
+                <li><a href="/features.html" class="nav-link">Features</a></li>
+                <li><a href="/pricing.html" class="nav-link">Pricing</a></li>
+                <li><a href="/faq.html" class="nav-link">FAQ</a></li>
+            </ul>
+            <div class="mobile-header-actions">
+                <a href="/login.html" class="btn btn-outline btn-full-width">Login</a>
+                <a href="/signup.html" class="btn btn-primary btn-full-width">Sign Up Free</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================== ANA İÇERİK ================== -->
+    <main>
+        <section id="humanizer-tool-section" class="section-padding-sm bg-gradient-light">
+            <div class="container">
+                <!-- Sayfa Başlığı -->
+                <div class="section-header text-center" style="margin-bottom: var(--spacing-xl);">
+                    <h1 class="section-title">AI to Human Text Converter</h1>
+                    <p class="section-subtitle">Paste your AI-generated text to make it sound natural, authentic, and undetectable.</p>
+                </div>
+
+                <!-- Humanizer Aracı Wrapper -->
+                <div class="humanizer-wrapper advanced">
+                    
+                    <!-- Metin Giriş ve Çıkış Alanları -->
+                    <div class="humanizer-io-grid">
+                        <!-- Sol Taraf: Giriş -->
+                        <div class="io-pane input-pane">
+                            <div class="pane-header">
+                                <span>Original Text</span>
+                                <button id="paste-button" class="btn-icon-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                                    <span>Paste</span>
+                                </button>
+                            </div>
+                            <textarea id="text-input" class="text-area" placeholder="Start by pasting or typing your text here..."></textarea>
+                            <div class="pane-footer">
+                                <span id="char-count">0 / 5000</span>
+                            </div>
+                        </div>
+
+                        <!-- Sağ Taraf: Çıkış -->
+                        <div class="io-pane output-pane">
+                            <div class="pane-header">
+                                <span>Humanized Text</span>
+                                 <button id="copy-button" class="btn-icon-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                    <span>Copy</span>
+                                </button>
+                            </div>
+                            <div id="text-output" class="text-area-output" data-placeholder="Your humanized text will appear here.">
+                                <!-- Yükleniyor animasyonu için placeholder -->
+                                <div class="loading-spinner" style="display: none;"></div>
+                            </div>
+                            <div class="pane-footer">
+                                <span id="output-stats">Readability: - | Words: -</span>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Ayarlar ve Ana Eylem Butonu -->
+                    <div class="humanizer-controls">
+                        <div class="settings-panel">
+                            <div class="setting-group">
+                                <label for="tone-select">Tone</label>
+                                <select id="tone-select" name="tone">
+                                    <option value="default">Default</option>
+                                    <option value="professional">Professional</option>
+                                    <option value="casual">Casual</option>
+                                    <option value="persuasive">Persuasive</option>
+                                </select>
+                            </div>
+                            <div class="setting-group">
+                                <label for="mode-select">Purpose</label>
+                                <select id="mode-select" name="mode">
+                                    <option value="readability">Improve Readability</option>
+                                    <option value="bypass">Bypass AI Detection</option>
+                                    <option value="formalize">Make More Formal</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="actions-panel">
+                            <button id="humanize-button" class="btn btn-primary btn-xl">
+                                <span>Humanize</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- ================== FOOTER ================== -->
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column footer-about">
+                    <h3 class="footer-logo">SwiftScriptify</h3>
+                    <p>Empowering creators with intelligent tools to create authentic, human-like content and streamline workflows.</p>
+                    <div class="social-links">
+                         <a href="#" aria-label="Twitter"><img src="/placeholder-social-tw.svg" alt="Twitter"></a>
+                         <a href="#" aria-label="LinkedIn"><img src="/placeholder-social-li.svg" alt="LinkedIn"></a>
+                    </div>
+                </div>
+                <div class="footer-column footer-links-group">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="/features.html">Features</a></li>
+                        <li><a href="/pricing.html">Pricing</a></li>
+                        <li><a href="/text-humanizer.html">Text Humanizer</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column footer-links-group">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column footer-links-group">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© <span id="currentYear"></span> SwiftScriptify Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Choose the perfect plan for our AI text humanization and automation tools.">
+    <title>Pricing - SwiftScriptify</title>
+
+    <!-- === LINK TO YOUR CSS FILE === -->
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body id="page-pricing"> <!-- Specific ID for this page to make targeting in JS/CSS easier -->
+
+    <!-- ================== HEADER ================== -->
+    <!-- Note: You should match this header content with your actual project's header. -->
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="logo">
+              <a href="/"> <!-- Ana sayfaya link -->
+                <img src="/images/logo.png" alt="SmartTools Logo" class="site-logo">
+              </a>
+            </div>
+            <nav class="main-navigation">
+                <ul class="nav-links">
+                    <li><a href="/" class="nav-link">Home</a></li>
+                    <li><a href="/text-humanizer.html" class="nav-link">Text Humanizer</a></li>
+                    <li><a href="/features.html" class="nav-link">Features</a></li>
+                    <li><a href="/pricing.html" class="nav-link">Pricing</a></li>
+                    <li><a href="/faq.html" class="nav-link">FAQ</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="/login.html" id="loginButton" class="btn btn-outline">Login</a>
+                <a href="/signup.html" id="signupButton" class="btn btn-primary">Sign Up Free</a>
+            </div>
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links-mobile">
+                <span class="hamburger-icon"></span>
+            </button>
+        </div>
+        <div class="mobile-nav-menu" id="nav-links-mobile">
+            <ul class="mobile-nav-links">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/text-humanizer.html" class="nav-link">Text Humanizer</a></li>
+                <li><a href="/features.html" class="nav-link">Features</a></li>
+                <li><a href="/pricing.html" class="nav-link">Pricing</a></li>
+                <li><a href="/faq.html" class="nav-link">FAQ</a></li>
+            </ul>
+            <div class="mobile-header-actions">
+                <a href="/login.html" class="btn btn-outline btn-full-width">Login</a>
+                <a href="/signup.html" class="btn btn-primary btn-full-width">Sign Up Free</a>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ================== MAIN CONTENT ================== -->
+    <main>
+        <section id="pricing-page-content" class="section-padding bg-gradient-light">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h1 class="section-title">Simple, Transparent Pricing</h1>
+                    <p class="section-subtitle">Choose the plan that best suits your needs. Save 20% with annual billing.</p>
+                </div>
+
+                <!-- Monthly/Annual Toggle Switch -->
+                <div class="pricing-toggle">
+                    <label id="monthlyLabel" class="billing-label active">Monthly</label>
+                    <label class="toggle-switch-wrapper">
+                        <input type="checkbox" id="billingCycleToggle" class="billing-cycle-checkbox">
+                        <span class="toggle-switch"></span>
+                    </label>
+                    <label id="annualLabel" class="billing-label">Annually <span class="discount-badge">Save 20%</span></label>
+                </div>
+
+                <!-- Pricing Cards -->
+                <div class="pricing-grid">
+                    <!-- Free Plan -->
+                    <div class="pricing-card" data-plan="free">
+                        <h3>Free</h3>
+                        <p class="price"><sup>$</sup><span class="price-value">0</span> <span>/ month</span></p>
+                        <p class="description">Perfect for occasional use and trying out the basics.</p>
+                        <ul class="features-list">
+                            <li><span class="icon">✔️</span> Basic Text Humanization</li>
+                            <li><span class="icon">✔️</span> Up to 500 characters/request</li>
+                            <li><span class="icon">✔️</span> Limited daily requests</li>
+                            <li class="feature-unavailable"><span class="icon">❌</span> Advanced Tone Options</li>
+                            <li class="feature-unavailable"><span class="icon">❌</span> Priority Support</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline btn-full-width">Get Started Free</a>
+                    </div>
+
+                    <!-- Pro Plan -->
+                    <div class="pricing-card popular" data-plan="pro">
+                        <span class="popular-badge">Most Popular</span>
+                        <h3>Pro</h3>
+                        <p class="price" data-monthly-price="9" data-annual-price="86"><sup>$</sup><span class="price-value">9</span> <span class="billing-period">/ month</span></p>
+                        <p class="description">For content creators and professionals who need more power.</p>
+                        <ul class="features-list">
+                            <li><span class="icon">✔️</span> Advanced Text Humanization</li>
+                            <li><span class="icon">✔️</span> Up to 3,000 characters/request</li>
+                            <li><span class="icon">✔️</span> Unlimited daily requests</li>
+                            <li><span class="icon">✔️</span> Advanced Tone Options</li>
+                            <li><span class="icon">✔️</span> Email Support</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary btn-full-width cta-pro-monthly">Choose Pro</a>
+                        <a href="#" class="btn btn-primary btn-full-width cta-pro-annual" style="display:none;">Choose Pro Annually</a>
+                    </div>
+
+                    <!-- Business Plan -->
+                    <div class="pricing-card" data-plan="business">
+                        <h3>Business</h3>
+                        <p class="price" data-monthly-price="29" data-annual-price="278"><sup>$</sup><span class="price-value">29</span> <span class="billing-period">/ month</span></p>
+                        <p class="description">For teams and businesses with high-volume needs and API access.</p>
+                        <ul class="features-list">
+                            <li><span class="icon">✔️</span> Everything in Pro</li>
+                            <li><span class="icon">✔️</span> Up to 10,000 characters/request</li>
+                            <li><span class="icon">✔️</span> Team Access (Coming Soon)</li>
+                            <li><span class="icon">✔️</span> API Access (Coming Soon)</li>
+                            <li><span class="icon">✔️</span> Priority Support</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline btn-full-width cta-business-monthly">Choose Business</a>
+                        <a href="#" class="btn btn-outline btn-full-width cta-business-annual" style="display:none;">Choose Business Annually</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="pricing-faq" class="section-padding">
+            <div class="container" style="max-width: 800px;">
+                 <div class="section-header text-center">
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                 </div>
+                 <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Can I upgrade or downgrade my plan later?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes, you can easily change your plan at any time from your account dashboard.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>What payment methods do you accept?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We accept all major credit cards and other payment methods supported by our payment processor, Stripe.</p>
+                        </div>
+                    </div>
+                     <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Is there a free trial for paid plans?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We offer a robust Free plan for you to test the basic functionality. For advanced features, you can subscribe to our Pro or Business plans directly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================== FOOTER ================== -->
+    <footer id="main-footer">
+        <div class="container footer-content" style="text-align:center;">
+             <div class="footer-column">
+                <p>© <span id="currentYear"></span> SwiftScriptify. All rights reserved.</p>
+                <ul class="footer-links" style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
+                     <li><a href="#">Privacy Policy</a></li>
+                     <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- === LINK TO YOUR JAVASCRIPT/TYPESCRIPT FILE === -->
+    <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
