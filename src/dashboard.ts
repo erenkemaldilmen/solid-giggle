@@ -1,18 +1,23 @@
 // src/dashboard.ts
 
-import { createClient } from '@supabase/supabase-js';
+// HATA 1 DÜZELTİLDİ: Gereksiz 'createClient' import'u silindi.
 import type { User } from '@supabase/supabase-js';
 
 console.log("--- [0] dashboard.ts Yüklendi ---");
 
-// YENİ SATIR BU
+// Bu satır doğru, çünkü supabase nesnesini başka bir dosyadan alıyorsunuz.
 import { supabase } from './supabaseClient';
 
 // === DOM Elementlerini Seçme ===
 const userEmailDisplay = document.getElementById('user-email-display');
 const planNameDisplay = document.getElementById('plan-name-display');
+
+// HATA 2 İÇİN HAZIRLIK: Bu değişken artık kullanılacak.
 const wordCreditsDisplay = document.getElementById('word-credits-display');
-// Diğer elementleri de buraya ekleyebilirsiniz...
+
+// HATA 3, 4, 5, 6 DÜZELTİLDİ: Eksik elementler tanımlandı.
+const wordsProgressBar = document.getElementById('words-progress-bar');
+const planPriceDisplay = document.getElementById('plan-price-display');
 
 /**
  * Arayüzü güncelleyen fonksiyon
@@ -32,42 +37,32 @@ async function updateDashboardUI(user: User) {
         if (error) throw error;
 
         if (profile) {
-            // =================================================================
-            // === YENİ VE DOĞRU MANTIK BAŞLANGIÇ ===
-            // =================================================================
-            
-            // 1. Doğrudan veritabanından gelen "kalan" krediyi al.
-            const remainingCredits = profile.credits;
+            const remainingCredits = profile.credits || 0;
 
-            // 2. Kalan krediyi ekrana yazdır.
-            const creditsContainer = document.getElementById('word-credits-display');
-            if (creditsContainer) {
-                const spanElement = creditsContainer.querySelector('span');
+            // HATA 2 DÜZELTİLDİ: 'creditsContainer' yerine doğrudan 'wordCreditsDisplay' kullanılıyor.
+            if (wordCreditsDisplay) {
+                const spanElement = wordCreditsDisplay.querySelector('span');
                 if (spanElement) {
                     spanElement.textContent = remainingCredits.toString();
                 }
             }
             
-            // 3. Progress bar'ı toplam limite göre ayarla.
-            //    Plan adını kontrol ederek toplam limiti bulalım.
             let totalLimit = 500; // Varsayılan ücretsiz limit
             if (profile.plan_name) {
                 if (profile.plan_name.toLowerCase().includes('pro')) totalLimit = 100000;
                 if (profile.plan_name.toLowerCase().includes('business')) totalLimit = 500000;
             }
             
-            // Progress bar'ın doluluk oranını hesapla
+            // Artık 'wordsProgressBar' tanımlı olduğu için bu kod çalışacak.
             if (wordsProgressBar) {
+                // Not: Progress bar'ı 'kullanılan' krediye göre ayarlamak daha mantıklı olabilir.
+                // Örneğin: const usedCredits = totalLimit - remainingCredits;
+                // const percentage = totalLimit > 0 ? (usedCredits / totalLimit) * 100 : 0;
                 const percentage = totalLimit > 0 ? (remainingCredits / totalLimit) * 100 : 0;
-                // Yüzde 100'ü geçmesin diye kontrol
                 (wordsProgressBar as HTMLElement).style.width = `${Math.min(percentage, 100)}%`;
             }
 
-            // =================================================================
-            // === YENİ VE DOĞRU MANTIK BİTİŞ ===
-            // =================================================================
-
-            // Plan bilgilerini güncelle
+            // Artık 'planPriceDisplay' tanımlı olduğu için bu kod çalışacak.
             if (planNameDisplay) planNameDisplay.textContent = profile.plan_name || 'Free Plan';
             if (planPriceDisplay) planPriceDisplay.textContent = profile.plan_price || '$0/month';
         }
