@@ -140,17 +140,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (bodyElement.id === 'page-pricing') {
         const billingToggle = document.getElementById('billingCycleToggle') as HTMLInputElement | null;
         
-        // HATA DÜZELTMESİ: Bu değişkenler, kullanılacakları fonksiyona taşındı.
-        // const monthlyLabel = document.getElementById('monthlyLabel');
-        // const annualLabel = document.getElementById('annualLabel');
-        
         const proMonthlyBtn = document.querySelector('.cta-pro-monthly') as HTMLElement | null;
         const proAnnualBtn = document.querySelector('.cta-pro-annual') as HTMLElement | null;
         const businessMonthlyBtn = document.querySelector('.cta-business-monthly') as HTMLElement | null;
         const businessAnnualBtn = document.querySelector('.cta-business-annual') as HTMLElement | null;
 
         const handleBillingToggle = () => {
-            // HATA DÜZELTMESİ: Değişkenler burada tanımlandı ve kullanıldı.
             const monthlyLabel = document.getElementById('monthlyLabel');
             const annualLabel = document.getElementById('annualLabel');
             
@@ -182,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         billingToggle?.addEventListener('change', handleBillingToggle);
-        handleBillingToggle(); // Sayfa yüklendiğinde de çalıştır
+        handleBillingToggle();
 
         document.querySelectorAll('.lemon-button').forEach(button => {
             button.addEventListener('click', async (event: Event) => {
@@ -209,121 +204,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+    // ===================================================================
+    // === DEĞİŞİKLİK BURADA: Text Humanizer bloğunun içi boşaltıldı ===
+    // ===================================================================
     if (bodyElement.id === 'page-text-humanizer') {
-        // Hata düzeltmesi: Her element için null kontrolü eklendi.
-        const textInput = document.getElementById('text-input') as HTMLTextAreaElement | null;
-        const textOutput = document.getElementById('text-output') as HTMLDivElement | null;
-        const charCount = document.getElementById('char-count') as HTMLSpanElement | null;
-        const humanizeButton = document.getElementById('humanize-button') as HTMLButtonElement | null;
-        const loadingSpinner = textOutput?.querySelector('.loading-spinner') as HTMLElement | null;
-
-        const sectionHeader = document.querySelector('#humanizer-tool-section .section-header');
-        let toolMessageDiv: HTMLDivElement | null = null;
-        if (sectionHeader) {
-            toolMessageDiv = document.createElement('div');
-            toolMessageDiv.id = 'tool-message-display';
-            toolMessageDiv.className = 'tool-message';
-            toolMessageDiv.style.display = 'none';
-            sectionHeader.appendChild(toolMessageDiv);
-        }
-
-        const MAX_CHARS = 5000;
-        const GUEST_WORD_LIMIT = 500;
-
-        const initializeGuestCredits = () => {
-            if (localStorage.getItem('guestWordCredits') === null) {
-                localStorage.setItem('guestWordCredits', String(GUEST_WORD_LIMIT));
-            }
-        };
-
-        const getRemainingCredits = (): number => {
-            return parseInt(localStorage.getItem('guestWordCredits') || '0', 10);
-        };
-
-        const getWordCount = (text: string): number => {
-            if (!text) return 0;
-            return text.trim().split(/\s+/).filter(word => word.length > 0).length;
-        };
-        
-        const updateToolState = () => {
-            if (!textInput || !humanizeButton) return;
-            const remainingCredits = getRemainingCredits();
-            const wordsInTextarea = getWordCount(textInput.value);
-            const charsInTextarea = textInput.value.length;
-            if (charCount) charCount.textContent = `${charsInTextarea} / ${MAX_CHARS}`;
-            let disableButton = false;
-            let message = "";
-            let showMessage = false;
-            if (remainingCredits <= 0) {
-                disableButton = true;
-                textInput.disabled = true;
-                message = `Your free trial of ${GUEST_WORD_LIMIT} words is over. Please <a href="/signup.html" class="link-primary">sign up</a> or <a href="/login.html" class="link-primary">login</a> for more.`;
-                showMessage = true;
-            } else if (wordsInTextarea > remainingCredits) {
-                disableButton = true;
-                message = `Your text (${wordsInTextarea} words) exceeds your remaining trial credits (${remainingCredits} words). You can <a href="/pricing.html" class="link-primary">upgrade your plan</a> to continue.`;
-                showMessage = true;
-            } else if (wordsInTextarea === 0) {
-                disableButton = true;
-            } else {
-                disableButton = false;
-            }
-            humanizeButton.disabled = disableButton;
-            if (toolMessageDiv) {
-                if (showMessage) {
-                    toolMessageDiv.innerHTML = message;
-                    toolMessageDiv.style.display = 'block';
-                } else {
-                    toolMessageDiv.style.display = 'none';
-                }
-            }
-        };
-
-        if(textInput) {
-            textInput.addEventListener('input', updateToolState);
-        }
-
-        if (humanizeButton && textInput && textOutput && loadingSpinner) {
-            humanizeButton.addEventListener('click', async () => {
-                const wordsUsed = getWordCount(textInput.value);
-                const remainingCredits = getRemainingCredits();
-                if (wordsUsed === 0 || wordsUsed > remainingCredits || textInput.value.length > MAX_CHARS) {
-                    updateToolState();
-                    if(textInput.value.length > MAX_CHARS) alert(`Maximum character limit (${MAX_CHARS}) exceeded.`);
-                    return;
-                }
-                const n8nWebhookUrl = 'https://n8n.swiftscriptify.com/webhook/78fec90e-aa0f-4814-a0b5-95d2e0a220a7';
-                humanizeButton.disabled = true;
-                textOutput.innerHTML = '';
-                loadingSpinner.style.display = 'block';
-                try {
-                    const response = await fetch(n8nWebhookUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ text: textInput.value }),
-                    });
-                    if (!response.ok) throw new Error(`API error: ${response.statusText}`);
-                    const data = await response.json();
-                    if (data && data.humanizedText) {
-                        textOutput.innerText = data.humanizedText;
-                        const newCredits = remainingCredits - wordsUsed;
-                        localStorage.setItem('guestWordCredits', String(newCredits));
-                    } else {
-                        textOutput.innerText = 'Received an empty response from the server.';
-                    }
-                } catch (error) {
-                    console.error('Failed to humanize text:', error);
-                    textOutput.innerText = 'An error occurred. Please try again later.';
-                } finally {
-                    loadingSpinner.style.display = 'none';
-                    humanizeButton.disabled = false;
-                    updateToolState();
-                }
-            });
-        }
-        
-        initializeGuestCredits();
-        updateToolState();
+        // Bu sayfanın mantığı artık 'src/text-humanizer.ts' dosyası tarafından yönetiliyor.
+        // Bu bloğu boş bırakmak, çakışmaları ve çift işlemleri önler.
     }
 });
 
@@ -341,4 +227,5 @@ supabase.auth.onAuthStateChange((event: AuthChangeEvent, _session: Session | nul
     }
 });
 
+// Update active link on browser back/forward navigation
 window.addEventListener('popstate', setActiveNavLink);

@@ -178,14 +178,19 @@
                     <!-- Kart: Kelime Kullanımı -->
                     <div class="dashboard-card">
                         <div class="card-header">
-                            <h3 class="card-title">Word Credits Usage</h3>
+                            <!-- Bu başlığı "Kalan Kredi" olarak değiştirmek daha mantıklı -->
+                            <h3 class="card-title">Remaining Word Credits</h3>
                             <span class="card-icon">✍️</span>
                         </div>
                         <div class="card-content">
+                            <!-- === DEĞİŞİKLİK BURADA === -->
                             <p class="stat-value" id="word-credits-display">
-                                <span id="words-used">0</span> / <span id="words-total">500</span>
+                                <!-- Artık sadece tek bir span var, JS burayı güncelleyecek -->
+                                <span>Loading...</span>
                             </p>
-                            <p class="stat-label">words used this period</p>
+                            <!-- Bu etiketi de "kalan" olarak güncelleyelim -->
+                            <p class="stat-label">words remaining</p>
+                            <!-- ======================= -->
                             <div class="stat-progress-bar">
                                 <div class="stat-progress-fill" id="words-progress-bar" style="width: 0%;"></div>
                             </div>
