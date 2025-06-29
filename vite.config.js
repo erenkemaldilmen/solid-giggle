@@ -13,7 +13,9 @@ export default defineConfig({
         textHumanizer: resolve(__dirname, 'text-humanizer.html'),
         features: resolve(__dirname, 'features.html'),
         pricing: resolve(__dirname, 'pricing.html'),
-
+        login: resolve(__dirname, 'login.html'),
+        signup: resolve(__dirname, 'signup.html'),
+        dashboard: resolve(__dirname, 'dashboard.html'),
         // Eğer projenizin kök dizininde başka HTML dosyaları varsa,
         // onları da bu formata uygun şekilde buraya ekleyin.
         // Örnek:

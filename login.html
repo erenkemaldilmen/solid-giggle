@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Login to your SmartTools account.">
+    <title>Login - SwiftScriptify</title>
+    <link rel="stylesheet" href="/src/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+</head>
+<body id="page-auth"> <!-- Sayfaya özel ID -->
+
+    <!-- ================== HEADER (Değiştirilmedi) ================== -->
+<header id="main-header">
+    <div class="container header-container">
+        <div class="logo">
+          <a href="/"> <!-- Ana sayfaya link -->
+            <img src="/images/logo.png" alt="SmartTools Logo" class="site-logo">
+          </a>
+        </div>
+        <nav class="main-navigation">
+            <ul class="nav-links">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/text-humanizer.html" class="nav-link">Text Humanizer</a></li>
+                <li><a href="/features.html" class="nav-link">Features</a></li>
+                <li><a href="/pricing.html" class="nav-link">Pricing</a></li>
+                <li><a href="/faq.html" class="nav-link">FAQ</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <a href="/login.html" id="loginButton" class="btn btn-outline">Login</a>
+            <a href="/signup.html" id="signupButton" class="btn btn-primary">Sign Up Free</a>
+        </div>
+        <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links-mobile">
+            <span class="hamburger-icon"></span>
+        </button>
+    </div>
+    <div class="mobile-nav-menu" id="nav-links-mobile">
+        <ul class="mobile-nav-links">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/text-humanizer.html" class="nav-link">Text Humanizer</a></li>
+            <li><a href="/features.html" class="nav-link">Features</a></li>
+            <li><a href="/pricing.html" class="nav-link">Pricing</a></li>
+            <li><a href="/faq.html" class="nav-link">FAQ</a></li>
+        </ul>
+        <div class="mobile-header-actions">
+            <a href="/login.html" class="btn btn-outline btn-full-width">Login</a>
+            <a href="/signup.html" class="btn btn-primary btn-full-width">Sign Up Free</a>
+        </div>
+    </div>
+</header>
+
+    <!-- ================== ANA İÇERİK (Değiştirildi) ================== -->
+    <main id="main-content">
+        <section class="auth-section section-padding">
+            <div class="container">
+                <div class="auth-form-container">
+                    <h1 class="auth-title">Welcome Back!</h1>
+                    <p class="auth-subtitle">Login to access your SwiftScriptify dashboard.</p>
+                    
+                    <form id="login-form" class="auth-form">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full-width btn-lg">Login</button>
+                    </form>
+                    
+                    <div id="message" class="form-message"></div>
+
+                    <div class="auth-switch">
+                        <p>Don't have an account? <a href="/signup.html" class="link-primary">Sign up for free</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- ================== FOOTER (Değiştirilmedi) ================== -->
+    <footer id="main-footer">
+        <!-- Footer içeriğiniz buraya gelecek (index.html'den kopyalayın) -->
+    </footer>
+
+    <!-- ================== SCRIPT'LER ================== -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Kendi Supabase URL ve Anon Anahtarınız buraya yapıştırın
+        const SUPABASE_URL = 'https://abteqgahhnnxiudbgrqf.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFidGVxZ2FoaG5ueGl1ZGJncnFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5MzQyMTgsImV4cCI6MjA2NjUxMDIxOH0.fy1f6SbmTMeZU_A5PG2PPA2lGGfRz-j8K6G2hhYr8hA';
+
+        // HATA BURADAYDI: Değişken adı "supabase", global kütüphane adıyla çakışıyordu.
+        // DÜZELTME: Değişken adını "supabaseClient" olarak değiştirdik.
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const loginForm = document.getElementById('login-form');
+        const messageDiv = document.getElementById('message');
+
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const email = loginForm.email.value;
+            const password = loginForm.password.value;
+            const submitButton = loginForm.querySelector('button[type="submit"]');
+
+            submitButton.disabled = true;
+            submitButton.textContent = 'Logging In...';
+            messageDiv.textContent = '';
+
+            // DÜZELTME: "supabase" yerine yeni değişken adımız "supabaseClient" kullanıldı.
+            const { data, error } = await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+            if (error) {
+                messageDiv.textContent = 'Error: ' + error.message;
+                messageDiv.className = 'form-message error';
+                submitButton.disabled = false;
+                submitButton.textContent = 'Login';
+            } else {
+                messageDiv.textContent = 'Login successful! Redirecting...';
+                messageDiv.className = 'form-message success';
+                // Başarılı girişten sonra kullanıcıyı fiyatlandırma veya bir dashboard sayfasına yönlendir
+                window.location.href = '/pricing.html'; 
+            }
+        });
+    </script>
+</body>
+</html>

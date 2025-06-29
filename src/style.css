@@ -1158,3 +1158,112 @@ ul, ol {
         width: 100%;
     }
 }
+/* === AUTHENTICATION PAGE STYLES === */
+
+.auth-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh; /* Formu dikeyde ortalamak için */
+    padding: 60px 0;
+}
+
+.auth-form-container {
+    max-width: 450px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #fff; /* Veya hafif gri bir arkaplan */
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    text-align: center;
+}
+
+.auth-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.auth-subtitle {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 2.5rem;
+}
+
+.auth-form {
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #4A90E2; /* Ana renk temanızla eşleştirin */
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+.form-text {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 0.25rem;
+}
+
+.btn-full-width {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+}
+
+.form-message {
+    margin-top: 1.5rem;
+    padding: 12px;
+    border-radius: 8px;
+    display: none; /* Varsayılan olarak gizli */
+}
+
+.form-message.error {
+    display: block;
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+}
+
+.form-message.success {
+    display: block;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}
+
+.auth-switch {
+    margin-top: 2rem;
+    font-size: 0.95rem;
+}
+
+.link-primary {
+    color: #4A90E2; /* Ana renk temanızla eşleştirin */
+    font-weight: 600;
+    text-decoration: none;
+}
+.link-primary:hover {
+    text-decoration: underline;
+}
