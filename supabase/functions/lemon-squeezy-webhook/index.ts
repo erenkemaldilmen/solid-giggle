@@ -5,10 +5,9 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { crypto } from "https://deno.land/std@0.177.0/crypto/mod.ts";
 
 // Ortam değişkenlerini alıyoruz
-const lemonSqueezySigningSecret = Deno.env.get('Kemal26.36.46')!;
-const supabaseUrl = Deno.env.get('https://abteqgahhnnxiudbgrqf.supabase.co')!;
-const supabaseServiceKey = Deno.env.get('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFidGVxZ2FoaG5ueGl1ZGJncnFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5MzQyMTgsImV4cCI6MjA2NjUxMDIxOH0.fy1f6SbmTMeZU_A5PG2PPA2lGGfRz-j8K6G2hhYr8hA')!; // Kullandığınız isim
-
+const lemonSqueezySigningSecret = Deno.env.get('LEMON_SQUEEZY_SIGNING_SECRET')!;
+const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 console.log("Lemon Squeezy Webhook function for plan & credit system initialized.");
 
 serve(async (req) => {

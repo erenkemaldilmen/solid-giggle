@@ -41,6 +41,7 @@ const updatePurchaseLinks = (user: User | null) => {
             url.searchParams.set('checkout[custom][user_id]', user.id);
             // Hata Düzeltmesi: user.email undefined olabileceğinden, || '' ile boş string atandı.
             url.searchParams.set('checkout[email]', user.email || '');
+            url.searchParams.set('checkout[data]', 'false');
             link.href = url.toString();
             
             // Lemon Squeezy script'inin butonu tanıması için class ekle
